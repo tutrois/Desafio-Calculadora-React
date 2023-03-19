@@ -6,31 +6,40 @@ import { useState } from "react";
 
 const App = () =>  { 
   const [display, setDisplay] = useState('0');
-  const [displayCalculation, setDisplayCalculation] = useState('0');
+  const [displayCalculation, setDisplayCalculation] = useState('');
   const [firstNumber, setFirstNumber] = useState(0);
   const formatBR = new Intl.NumberFormat('pt-BR')
 
+  //Realiza a adição de um item no display
   const AddNumberDisplay = (number) => {
     setDisplay(display => {
       let result = `${display === '0'? '' :display}${number}`;
-      return result;
+      return String(result);
     });
   };
 
-
+  //Função de limpar a calculadora
   const handleOnClear = () => {
     setDisplay('0');
+    setDisplayCalculation('')
   };
 
+  //Função de Soma
   const handleSumNumbers = () => {
-    if (firstNumber === '0'){
-      setFirstNumber(String(display));
+    if(display !== '0'){
+      setDisplayCalculation(dc => `${dc === ''? '': dc}${formatBR.format(parseFloat(display)) + " + "}`);
       setDisplay('0');
-    }else{
-      const sum = Number(firstNumber) + Number(display);
-      setDisplay(String(sum));
     }
   };
+
+  //Função de solução da equação
+  const solutionEquation = () => {
+    if(displayCalculation !== ''){
+      let result = eval(displayCalculation.replace(/\./g, "").replace(",", ".")+display);
+      setDisplayCalculation(dc => `${dc === ''? '': dc}${display + " = "}`);
+      setDisplay(result);
+    }
+  }
 
   return (
     <Container>
@@ -60,13 +69,13 @@ const App = () =>  {
           <Button label={"1"} onClick={() => AddNumberDisplay('1')}/>
           <Button label={"2"} onClick={() => AddNumberDisplay('2')}/>
           <Button label={"3"} onClick={() => AddNumberDisplay('3')}/>
-          <Button label={"+"} color={"#323232"}/>
+          <Button label={"+"} color={"#323232"} onClick={handleSumNumbers}/>
         </Row>
         <Row>
           <Button label={"+/-"}/>
           <Button label={"0"} onClick={() => AddNumberDisplay('0')}/>
           <Button label={","}/>
-          <Button label={"="} color={"#7e1b8a"} />
+          <Button label={"="} color={"#7e1b8a"} onClick={solutionEquation}/>
         </Row>
       </Content>
     </Container>
