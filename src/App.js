@@ -4,36 +4,38 @@ import Button from './components/Button';
 import { Container, Content, Row} from './style';
 import { useState } from "react";
 
-import { BoxIconElement } from 'boxicons';
-
 const App = () =>  { 
-  const [display, setDisplayNumber] = useState(0);
+  const [display, setDisplay] = useState('0');
+  const [displayCalculation, setDisplayCalculation] = useState('0');
   const [firstNumber, setFirstNumber] = useState(0);
-
+  const formatBR = new Intl.NumberFormat('pt-BR')
 
   const AddNumberDisplay = (number) => {
-    setDisplayNumber(prev => `${number}${prev == '0'? '' :prev}`);
+    setDisplay(display => {
+      let result = `${display === '0'? '' :display}${number}`;
+      return result;
+    });
   };
+
 
   const handleOnClear = () => {
-    setDisplayNumber('0');
+    setDisplay('0');
   };
 
- 
   const handleSumNumbers = () => {
-    if (firstNumber == '0'){
+    if (firstNumber === '0'){
       setFirstNumber(String(display));
-      setDisplayNumber('0');
+      setDisplay('0');
     }else{
       const sum = Number(firstNumber) + Number(display);
-      setDisplayNumber(String(sum));
+      setDisplay(String(sum));
     }
   };
 
   return (
     <Container>
       <Content>
-        <Input value={display}/>
+        <Input value={formatBR.format(parseFloat(display))} valueCalculation={displayCalculation}/>
         <Row>
           <Button label={"%"} color={"#323232"}/>
           <Button label={"C"} color={"#323232"}  onClick={handleOnClear}/>
@@ -62,7 +64,7 @@ const App = () =>  {
         </Row>
         <Row>
           <Button label={"+/-"}/>
-          <Button label={"0"} onClick={AddNumberDisplay}/>
+          <Button label={"0"} onClick={() => AddNumberDisplay('0')}/>
           <Button label={","}/>
           <Button label={"="} color={"#7e1b8a"} />
         </Row>
