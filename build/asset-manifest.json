@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Desafio-Calculadora-React/static/js/main.7520783f.js",
-    "index.html": "/Desafio-Calculadora-React/index.html",
-    "main.7520783f.js.map": "/Desafio-Calculadora-React/static/js/main.7520783f.js.map"
+    "main.js": "/desafio-calculadora-react/static/js/main.355dd709.js",
+    "index.html": "/desafio-calculadora-react/index.html",
+    "main.355dd709.js.map": "/desafio-calculadora-react/static/js/main.355dd709.js.map"
   },
   "entrypoints": [
-    "static/js/main.7520783f.js"
+    "static/js/main.355dd709.js"
   ]
 }
