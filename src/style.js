@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
     background-color: #202020;
-    width: 50%;
+    width: 70%;
     height: 50%; /* define uma altura*/
     border: 1.4px solid #7e1b8a;
     display: flex;
