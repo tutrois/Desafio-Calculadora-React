@@ -7,11 +7,17 @@ import { useState } from "react";
 const App = () =>  { 
   const [display, setDisplay] = useState('0');
   const [displayCalculation, setDisplayCalculation] = useState('');
-  const formatBR = new Intl.NumberFormat('pt-BR')
+  const formatBR = new Intl.NumberFormat('pt-BR');
+  var CalculationFinish = false;
 
   //Realiza a adição de um item no display
   const AddNumberDisplay = (number) => {
+    if(String(displayCalculation).includes("=")){
+      handleOnClear();
+    }
+
     setDisplay(display => {
+      console.log(String(displayCalculation).includes("="));
       let result = `${display === '0'? '' :display}${number}`;
       return String(result);
     });
@@ -26,7 +32,7 @@ const App = () =>  {
   //Função de Soma
   const handleOperationNumbers = (operation) => {
     if(display !== '0'){
-      setDisplayCalculation(dc => `${dc === ''? '': dc}${formatBR.format(parseFloat(display))} ${operation}`);
+      setDisplayCalculation(dc => `${dc === '' || String(displayCalculation).includes("=")? '': dc}${formatBR.format(parseFloat(display))} ${operation}`);
       setDisplay('0');
     }
   };
@@ -37,6 +43,7 @@ const App = () =>  {
       let result = eval(displayCalculation.replace(/\./g, "").replace(",", ".")+display);
       setDisplayCalculation(dc => `${dc === ''? '': dc}${display + " = "}`);
       setDisplay(result);
+      CalculationFinish = true;
     }
   }
 
