@@ -29,10 +29,10 @@ const App = () =>  {
     setDisplayCalculation('')
   };
 
-  //Função de Soma
+  //Função operacional
   const handleOperationNumbers = (operation) => {
     if(display !== '0'){
-      setDisplayCalculation(dc => `${dc === '' || String(displayCalculation).includes("=")? '': dc}${formatBR.format(parseFloat(display))} ${operation}`);
+      setDisplayCalculation(dc => `${dc === '' || String(displayCalculation).includes("=")? '': dc} ${formatBR.format(parseFloat(display))} ${operation}`);
       setDisplay('0');
     }
   };
@@ -52,9 +52,9 @@ const App = () =>  {
       <Content>
         <Input value={formatBR.format(parseFloat(display))} valueCalculation={displayCalculation}/>
         <Row>
-          <Button label={"%"} color={"#323232"}/>
+          <Button label={"%"} color={"#323232"} disabled/>
           <Button label={"C"} color={"#323232"}  onClick={handleOnClear}/>
-          <Button label={"<"} color={"#323232"}/>
+          <Button label={"<"} color={"#323232"} disabled/>
           <Button label={"/"} color={"#323232"} onClick={() => handleOperationNumbers("/")}/>
         </Row>
         <Row>
@@ -62,8 +62,6 @@ const App = () =>  {
           <Button label={"8"} onClick={() => AddNumberDisplay('8')}/>
           <Button label={"9"} onClick={() => AddNumberDisplay('9')}/>
           <Button label={"x"} color={"#323232"}  onClick={() => handleOperationNumbers("*")}/>
-
-         
         </Row>
         <Row>
           <Button label={"4"} onClick={() => AddNumberDisplay('4')}/>
@@ -78,9 +76,9 @@ const App = () =>  {
           <Button label={"+"} color={"#323232"} onClick={() => handleOperationNumbers("+")}/>
         </Row>
         <Row>
-          <Button label={"+/-"}/>
+          <Button label={"+/-"} disabled/>
           <Button label={"0"} onClick={() => AddNumberDisplay('0')}/>
-          <Button label={","}/>
+          <Button label={","} disabled/>
           <Button label={"="} color={"#7e1b8a"} onClick={solutionEquation}/>
         </Row>
       </Content>
