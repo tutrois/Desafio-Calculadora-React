@@ -7,7 +7,6 @@ import { useState } from "react";
 const App = () =>  { 
   const [display, setDisplay] = useState('0');
   const [displayCalculation, setDisplayCalculation] = useState('');
-  const [firstNumber, setFirstNumber] = useState(0);
   const formatBR = new Intl.NumberFormat('pt-BR')
 
   //Realiza a adição de um item no display
@@ -25,9 +24,9 @@ const App = () =>  {
   };
 
   //Função de Soma
-  const handleSumNumbers = () => {
+  const handleOperationNumbers = (operation) => {
     if(display !== '0'){
-      setDisplayCalculation(dc => `${dc === ''? '': dc}${formatBR.format(parseFloat(display)) + " + "}`);
+      setDisplayCalculation(dc => `${dc === ''? '': dc}${formatBR.format(parseFloat(display))} ${operation}`);
       setDisplay('0');
     }
   };
@@ -49,13 +48,13 @@ const App = () =>  {
           <Button label={"%"} color={"#323232"}/>
           <Button label={"C"} color={"#323232"}  onClick={handleOnClear}/>
           <Button label={"<"} color={"#323232"}/>
-          <Button label={"/"} color={"#323232"}/>
+          <Button label={"/"} color={"#323232"} onClick={() => handleOperationNumbers("/")}/>
         </Row>
         <Row>
           <Button label={"7"} onClick={() => AddNumberDisplay('7')}/>
           <Button label={"8"} onClick={() => AddNumberDisplay('8')}/>
           <Button label={"9"} onClick={() => AddNumberDisplay('9')}/>
-          <Button label={"x"} color={"#323232"}  />
+          <Button label={"x"} color={"#323232"}  onClick={() => handleOperationNumbers("*")}/>
 
          
         </Row>
@@ -63,13 +62,13 @@ const App = () =>  {
           <Button label={"4"} onClick={() => AddNumberDisplay('4')}/>
           <Button label={"5"} onClick={() => AddNumberDisplay('5')}/>
           <Button label={"6"} onClick={() => AddNumberDisplay('6')}/>
-          <Button label={"-"} color={"#323232"}  />
+          <Button label={"-"} color={"#323232"} onClick={() => handleOperationNumbers("-")} />
         </Row>
         <Row>
           <Button label={"1"} onClick={() => AddNumberDisplay('1')}/>
           <Button label={"2"} onClick={() => AddNumberDisplay('2')}/>
           <Button label={"3"} onClick={() => AddNumberDisplay('3')}/>
-          <Button label={"+"} color={"#323232"} onClick={handleSumNumbers}/>
+          <Button label={"+"} color={"#323232"} onClick={() => handleOperationNumbers("+")}/>
         </Row>
         <Row>
           <Button label={"+/-"}/>
